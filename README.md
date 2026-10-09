@@ -43,6 +43,10 @@ The goal isn't just to show that detection works "out of the box," but to unders
 | 2c | Automated response | triggered after 8 failures within 2 minutes | Wazuh Active Response — source IP blocked via iptables (`firewall-drop`), automatically unblocked after 10 minutes | `active-responses.log` → Wazuh dashboard | rule.id **651 / 652** | Mitigation (NIST SI.4) |
 | 3 | SQL injection (UNION-based) | request against DVWA (`vulnerabilities/sqli`) | Wazuh (Apache log analysis) **and** Suricata (custom rule) | `access.log` + `eve.json` → Wazuh dashboard | rule.id **31106** / sid **1000001** | T1190 — Exploit Public-Facing Application |
 
+## Screenshots
+
+![Nmap alert in Wazuh dashboard](screenshots/01_wazuh_nmap_alerts.png)
+
 ## Custom Suricata rules
 
 File: `suricata/custom.rules`
