@@ -47,7 +47,7 @@ The goal isn't just to show that detection works "out of the box," but to unders
 
 ![Nmap alert in Wazuh dashboard](screenshots/01_wazuh_nmap_alerts.png)
 ![Nmap alert in Wazuh dashboard](screenshots/02_wazuh_hydra_alerts.png)
-![Nmap alert in Wazuh dashboard](screenshots/03_kali_hydra_sucess.png)
+![Nmap alert in Wazuh dashboard](screenshots/03_kali_hydra_success.png)
 ![Nmap alert in Wazuh dashboard](screenshots/04_wazuh_ssh_blocked.png)
 ![Nmap alert in Wazuh dashboard](screenshots/05_wazuh_block_kali_ip.png)
 ![Nmap alert in Wazuh dashboard](screenshots/06_agent_iptables_after_block.png)
