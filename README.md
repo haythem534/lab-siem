@@ -85,8 +85,6 @@ After 8 failed SSH authentication attempts within less than 2 minutes (rule 5763
 
 ## Challenges encountered and resolved
 
-- **RAM constraint**: VM adjustments (Ubuntu Desktop → Ubuntu Server, Kali disk resized after running out of space).
-- **Networking**: the Wazuh adapter was initially in bridged mode instead of host-only, fixed to properly isolate the lab.
 - **Silent active response**: the `<active-response>` block had been left commented out (`<!-- -->`) by mistake in `ossec.conf`, preventing execution despite detection working correctly — diagnosed by comparing manager and agent logs.
 - **SSH correlation rule**: the official rule 5720 didn't match the rule chain actually triggered in this Wazuh version (4.14); the correct rule (5763) was identified by inspecting the ruleset directly.
 
