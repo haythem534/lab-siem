@@ -45,14 +45,27 @@ The goal isn't just to show that detection works "out of the box," but to unders
 
 ## Screenshots
 
+This image shows the detection of a nmap scan on the agent
 ![Nmap alert in Wazuh dashboard](screenshots/01_wazuh_nmap_alerts.png)
-![Nmap alert in Wazuh dashboard](screenshots/02_wazuh_hydra_alerts.png)
+
+This image shows the ssh brute force attack being successful
 ![Nmap alert in Wazuh dashboard](screenshots/03_kali_hydra_success.png)
+
+This image shows the detection of a ssh brute force attack on the agent
 ![Nmap alert in Wazuh dashboard](screenshots/04_wazuh_ssh_blocked.png)
+
+This image shows the agent blocking the IP of the attacker before unblocking it a few minutes later
 ![Nmap alert in Wazuh dashboard](screenshots/05_wazuh_block_kali_ip.png)
+
+This image shows the agent's firewall successfully blocking the attacker's IP
 ![Nmap alert in Wazuh dashboard](screenshots/06_agent_iptables_after_block.png)
+
+These images shows the ssh brute force attack failing
 ![Nmap alert in Wazuh dashboard](screenshots/07_kali_hydra_fail.png)
+
 ![Nmap alert in Wazuh dashboard](screenshots/08_kali_hydra_fail.png)
+
+This image shows the agent detection a nmap scan and an SQL injection attack 
 ![Nmap alert in Wazuh dashboard](screenshots/09_wazuh_detect_nmap&SQL-injection.png)
 
 ## Custom Suricata rules
