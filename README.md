@@ -14,7 +14,7 @@ The goal isn't just to show that detection works "out of the box," but to unders
 |---|---|---|---|---|---|
 | Wazuh | OVA appliance | 4 GB | 4 | 192.168.56.102 | Manager, indexer, dashboard |
 | Target | Ubuntu Server 24.04 LTS | 2 GB | 2 | 192.168.56.20 | Wazuh agent, Suricata, Apache, SSH, DVWA |
-| Attacker | Kali Linux (headless) | 2 GB | 2 | 192.168.56.30 | Attack tools (Nmap, Hydra, curl) |
+| Attacker | Kali Linux (headless) | 1 GB | 2 | 192.168.56.30 | Attack tools (Nmap, Hydra, etc...) |
 | Host PC | — | — | — | 192.168.56.1 | Browser used to reach the dashboard and DVWA |
 
 *(Detailed network diagram: see `network-diagram.png`)*
@@ -85,14 +85,14 @@ After 8 failed SSH authentication attempts within less than 2 minutes (rule 5763
 
 ## Challenges encountered and resolved
 
-- **Silent active response**: the `<active-response>` block had been left commented out (`<!-- -->`) by mistake in `ossec.conf`, preventing execution despite detection working correctly — diagnosed by comparing manager and agent logs.
+- **Silent active response**: the `<active-response>` block had been left commented out by mistake in `ossec.conf`, preventing execution despite detection working correctly — diagnosed by comparing manager and agent logs.
 - **SSH correlation rule**: the official rule 5720 didn't match the rule chain actually triggered in this Wazuh version (4.14); the correct rule (5763) was identified by inspecting the ruleset directly.
 
 ## Possible improvements
 
 - Extend the custom Suricata rules (encoding variants, other injection patterns).
-- Add an active response for web attacks (e.g., block after repeated SQLi detections).
-- Centralize more logs (e.g., MariaDB logs, full system logs).
+- Add an active response for web attacks (block after repeated SQLi detections).
+- Centralize more logs (MariaDB logs, full system logs).
 
 ## Stack used
 
