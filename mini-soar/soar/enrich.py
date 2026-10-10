@@ -24,7 +24,7 @@ def is_public(ip):
     except ValueError:
         return False
 
-@lru_cache(maxsize=None)  # une seule requête par IP, pour ménager les quotas
+@lru_cache(maxsize=None)
 def abuseipdb(ip):
     r = requests.get(
         "https://api.abuseipdb.com/api/v2/check",
@@ -49,7 +49,7 @@ def virustotal(ip):
     )
     r.raise_for_status()
     stats = r.json()["data"]["attributes"]["last_analysis_stats"]
-    time.sleep(15)  # quota gratuit : 4 requêtes/minute
+    time.sleep(15)
     return {
         "vt_malicious": stats.get("malicious", 0),
         "vt_suspicious": stats.get("suspicious", 0),
