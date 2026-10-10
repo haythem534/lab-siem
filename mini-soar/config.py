@@ -5,4 +5,5 @@ WATCHED_RULES = {
     # Suricata rules: can be added later
 }
 
-ALERTS_FILE = "data/alerts.json"
+ALERTS_FILE = "data/alerts.sample.json" # Change the path and file name accordingly
+ 
