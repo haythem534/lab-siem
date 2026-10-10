@@ -144,7 +144,7 @@ The script runs on the **analyst workstation** (Windows), not on the manager or 
 
 ### Result
 
-![Discord notifications](screenshots/discord-notification.png)
+![Discord notifications](screenshots/Discord-notifications.png)
 
 ### Installation and Usage
 
