@@ -1,8 +1,8 @@
-# Règles Wazuh à surveiller
+# Wazuh rules
 WATCHED_RULES = {
     "5763": "SSH brute force",
     "31106": "Web attack (SQLi)",
-    # Regles Suricata : a ajouter une fois leur rule.id repere dans alerts.json
+    # Suricata rules: can be added later
 }
 
 ALERTS_FILE = "data/alerts.json"
