@@ -3,8 +3,7 @@ from config import ALERTS_FILE
 from soar.ingest import load_alerts
 from soar.enrich import enrich
 
-# Mode démo : remplace les IP privées par une IP publique connue pour avoir
-# un résultat visible. Mets ici une IP récemment signalée sur AbuseIPDB.
+
 DEMO_IP = os.environ.get("DEMO_IP")
 
 def dedupe(alerts):
