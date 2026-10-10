@@ -8,7 +8,7 @@ def load_alerts(path):
             try:
                 a = json.loads(line)
             except json.JSONDecodeError:
-                continue  # ligne tronquée
+                continue
             rule_id = a.get("rule", {}).get("id")
             if rule_id in WATCHED_RULES:
                 alerts.append(normalize(a))
