@@ -185,15 +185,18 @@ A sample file, `alerts.sample.json`, lets you test without the lab.
 
 ### Future Improvements
 
-- [ ] Daily report in Markdown/HTML
-- [ ] Read alerts through the Wazuh API
-- [ ] Support for Suricata alerts
-- [ ] Scheduled execution on the manager (cron / systemd)
+- Daily report in Markdown/HTML
+- Read alerts through the Wazuh API
+- Support for Suricata alerts
+- Scheduled execution on the manager (cron / systemd)
 
 ## Stack used
 
 - VirtualBox
 - Wazuh 4.14 (manager + agent)
 - Suricata (Emerging Threats ruleset + custom rules)
-- Kali Linux
+- Kali Linux (attack simulation)
 - Ubuntu Server 24.04 LTS, Apache, MariaDB, DVWA
+- Python 3 (`requests`), mini-SOAR for alert triage
+- AbuseIPDB and VirusTotal APIs (threat intelligence enrichment)
+- Discord webhooks (alert notifications)
