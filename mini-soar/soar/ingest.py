@@ -2,7 +2,6 @@ import json
 from config import WATCHED_RULES
 
 def load_alerts(path):
-    """Lit alerts.json (1 JSON par ligne) et garde les regles surveillées."""
     alerts = []
     with open(path, encoding="utf-8") as f:
         for line in f:
@@ -16,7 +15,6 @@ def load_alerts(path):
     return alerts
 
 def normalize(a):
-    """Ne garde que les champs utiles, dans un format simple."""
     return {
         "timestamp": a.get("timestamp"),
         "rule_id": a["rule"]["id"],
