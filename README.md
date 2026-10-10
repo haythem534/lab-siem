@@ -108,6 +108,70 @@ Configuration added to `ossec.conf` (manager):
 
 After 8 failed SSH authentication attempts within less than 2 minutes (rule 5763), the source IP is automatically blocked via `iptables` on the target machine, then unblocked after 10 minutes.
 
+## Mini-SOAR: Automated Wazuh Alert Triage
+
+The lab proves **detection**; this module proves **automation**. A Python script reads Wazuh alerts, enriches them with threat intelligence, computes a severity score, and sends a formatted notification to Discord, the way a SOC analyst would during first-level triage.
+
+### Architecture
+
+```mermaid
+flowchart LR
+    A[Wazuh manager<br/>alerts.json] -->|scp| B[Python script<br/>analyst workstation]
+    B --> C[Rule filtering<br/>5763, 31106]
+    C --> D[AbuseIPDB<br/>VirusTotal]
+    D --> E[MITRE ATT&CK<br/>+ score 0-100]
+    E --> F[Discord webhook]
+```
+
+The script runs on the **analyst workstation** (Windows), not on the manager or the agents: it consumes a copy of the manager's alerts file.
+
+### Features
+
+- **Ingestion** of `alerts.json` (one JSON alert per line) with filtering by rule ID
+- **Enrichment** of the source IP through the AbuseIPDB API (confidence score, number of reports, country) and VirusTotal (number of engines flagging the IP as malicious)
+- **MITRE ATT&CK mapping**: technique carried by the Wazuh rule, with its human-readable name
+- **Severity score** (0 to 100): rule level × 5, + 40% of the AbuseIPDB score, + 3 points per malicious VirusTotal engine (capped at 10), ranked as LOW / MEDIUM / CRITICAL
+- **Recommended action** attached to each alert type
+- **Discord notification** (embed colored by severity) for alerts above a threshold
+- Per-IP request caching and compliance with free-tier API quotas
+
+### Covered Alerts
+
+| Wazuh rule | Detection | MITRE ATT&CK |
+|---|---|---|
+| 5763 | SSH brute force | T1110 |
+| 31106 | Web attack (SQL injection) | T1190 |
+
+### Result
+
+![Discord notifications](screenshots/discord-notification.png)
+
+### Installation and Usage
+
+```bash
+pip install -r requirements.txt
+
+# API keys and webhook via environment variables (never in the code)
+set ABUSEIPDB_KEY=...
+set VT_KEY=...
+set DISCORD_WEBHOOK=...
+
+# Copy the alerts from the Wazuh manager
+scp wazuh-user@<MANAGER_IP>:/tmp/alerts.json data/alerts.json
+
+python main.py
+```
+
+A sample file, `alerts.sample.json`, lets you test without the lab.
+
+### Known Limitations
+
+- The lab IPs are **private** (`192.168.56.0/24`): AbuseIPDB and VirusTotal have no reputation data to return for them. A **demo mode** (`DEMO_IP`) substitutes a public IP known to be malicious to validate the enrichment pipeline; these alerts are tagged `[DEMO]`.
+- Alerts are retrieved **manually** (`scp`) rather than through the Wazuh API.
+- No deduplication: each run processes every alert in the file.
+- Suricata alerts (Nmap scans) are not handled yet.
+- MITRE mapping and recommended actions are hardcoded for the covered rules.
+
 ## Challenges encountered and resolved
 
 - **Silent active response**: the `<active-response>` block had been left commented out by mistake in `ossec.conf`, preventing execution despite detection working correctly — diagnosed by comparing manager and agent logs.
@@ -118,6 +182,13 @@ After 8 failed SSH authentication attempts within less than 2 minutes (rule 5763
 - Extend the custom Suricata rules (encoding variants, other injection patterns).
 - Add an active response for web attacks (block after repeated SQLi detections).
 - Centralize more logs (MariaDB logs, full system logs).
+
+### Future Improvements
+
+- [ ] Daily report in Markdown/HTML
+- [ ] Read alerts through the Wazuh API
+- [ ] Support for Suricata alerts
+- [ ] Scheduled execution on the manager (cron / systemd)
 
 ## Stack used
 
