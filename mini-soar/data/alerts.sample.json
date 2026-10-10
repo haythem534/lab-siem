@@ -1,4 +1,5 @@
 //This file is copy from the wazuh manager
+//If you want to use your own file sepcify it's name and path in config.py
 //Here an exemple
 
 {"timestamp":"2026-10-10T02:07:55.385+0000","rule":{"level":10,"description":"sshd: brute force trying to get access to the system. Authentication failed.","id":"5763","mitre":{"id":["T1110"],"tactic":["Credential Access"],"technique":["Brute Force"]},"firedtimes":1,"mail":false,"groups":["syslog","sshd","authentication_failures"]},"agent":{"id":"001","name":"ubuntu-agent","ip":"192.168.56.30"},"manager":{"name":"wazuh-server"},"id":"1791597475.20001","full_log":"Oct 10 02:07:54 ubuntu-agent sshd[4120]: Failed password for invalid user admin from 192.168.56.30 port 51234 ssh2","predecoder":{"program_name":"sshd","timestamp":"Oct 10 02:07:54","hostname":"ubuntu-agent"},"decoder":{"parent":"sshd","name":"sshd"},"data":{"srcip":"192.168.56.30","srcport":"51234","srcuser":"admin"},"location":"journald"}
